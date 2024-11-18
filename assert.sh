@@ -33,6 +33,11 @@ if [ -d "$ROOT_DIR/App" ]; then
 fi
 
 function step1() {
+    if [ ! -f "$ROOT_DIR/mise.toml" ]; then
+    echo_error "$ROOT_DIR/mise.toml file does not exist."
+    exit 1
+    fi
+
     # We check that "tuist" is successfully installed
     tuist_env_output=$(tuist version)
 
@@ -57,15 +62,15 @@ function step2() {
     exit 1
     fi
 
-    # Check if Tuist.swift file exists
-    if [ ! -f "$PROJECT_DIR/Tuist.swift" ]; then
-    echo_error "$PROJECT_DIR/Tuist.swift file does not exist."
+    # Check if Tuist/Config.swift file exists
+    if [ ! -f "$PROJECT_DIR/Tuist/Config.swift" ]; then
+    echo_error "$PROJECT_DIR/Tuist/Config.swift file does not exist."
     exit 1
     fi
 
-    # Check if the Tuist.swift file contains the desired line
-    if ! grep -q "let config = Config()" "$PROJECT_DIR/Tuist.swift"; then
-    echo_error "The $PROJECT_DIR/Tuist.swift file does not contain the required line."
+    # Check if the Tuist/Config.swift file contains the desired line
+    if ! grep -q "let config = Config()" "$PROJECT_DIR/Tuist/Config.swift"; then
+    echo_error "The $PROJECT_DIR/Tuist/Config.swift file does not contain the required line."
     exit 1
     fi
 

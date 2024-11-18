@@ -61,18 +61,29 @@ Project.swift
 
 ### Install Tuist
 
-You can install Tuist by running the following command:
+Let's install Tuist first. While you can use Brew, we'll be using Mise for this workshop.
 
-#### Using Homebrew
+#### Installing Mise
 
-```bash
-brew tap tuist/tuist
-brew install --formula tuist
+Installing the [Mise CLI](https://mise.jdx.dev/getting-started.html#installing-mise-cli):
+```sh
+curl https://mise.run | sh
 ```
 
-#### Using Mise
+[Activating Mise](https://mise.jdx.dev/getting-started.html#activate-mise):
+```sh
+# bash
+echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+# zsh
+echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+# fish
+echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish
+```
+
+#### Set up Tuist version with Mise
+
 ```bash
-mise install tuist
+mise use tuist@latest
 ```
 
 ## 2. Project creation
