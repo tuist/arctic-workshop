@@ -743,6 +743,7 @@ Create a file at `Modules/TuistAppKit/Tests/TuistAppKitTests.swift`:
 
 <details>
 <summary>Modules/TuistAppKit/Tests/TuistAppKitTests.swift</summary>
+
 ```swift
 import Testing
 
@@ -750,13 +751,14 @@ import Testing
     #expect(true == true)
 }
 ```
+
 </details>
 
 Then update `Tuist/ProjectDescriptionHelpers/Project+TuistApp.swift` to include the tests:
 
-
 <details>
 <summary>Tuist/ProjectDescriptionHelpers/Project+TuistApp.swift</summary>
+
 ```swift
 import ProjectDescription
 
