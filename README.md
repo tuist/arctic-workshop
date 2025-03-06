@@ -470,6 +470,7 @@ Then let's edit the Tuist project with `tuist edit` and edit the following files
 
 ```swift
 import ProjectDescription
+import Foundation
 
 public enum Module: String {
     case app
