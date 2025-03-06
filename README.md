@@ -628,12 +628,12 @@ public enum Module: String {
         }
     }
 
-    var dependencies: [Dependency] {
-        switch self {
-        case .app: [.module(.kit)]
-+       case .kit: [.package("Swifter")]
-        }
-    }
++    var dependencies: [Dependency] {
++        switch self {
++        case .app: [.module(.kit)]
++        case .kit: [.package("Swifter")]
++        }
++    }
 }
 
 public extension Project {
