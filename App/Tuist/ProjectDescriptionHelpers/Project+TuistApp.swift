@@ -22,7 +22,12 @@ public enum Module: String {
         case .app:
             return .app
         case .kit:
-            return .framework
+            switch Environment.defaultProduct {
+            case .string("static_framework"):
+                return .staticFramework
+            default:
+                return .framework
+            }
         }
     }
     
