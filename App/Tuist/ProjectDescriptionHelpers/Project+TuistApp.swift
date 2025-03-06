@@ -40,7 +40,7 @@ public enum Module: String {
     
     var dependencies: [Dependency] {
         switch self {
-        case .app: [.module(.kit)]
+        case .app: [.module(.kit), .package("Swifter")]
         case .kit: [.package("Swifter")]
         }
     }
