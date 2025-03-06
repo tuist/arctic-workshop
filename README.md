@@ -36,7 +36,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh
 
 ## 1. What is Tuist?
 
-Tuist is a command-line tool that leverages Xcode Project generation to help teams overcome the challenges of scaling up development. Examples of challenges are:
+Tuist is a developer productivity platform to help teams overcome the challenges of scaling up development. Examples of challenges are:
 
 - Git conflicts in Xcode projects.
 - Inconsistencies across targets and projects.
@@ -44,7 +44,9 @@ Tuist is a command-line tool that leverages Xcode Project generation to help tea
 - Inefficient Xcode and clean builds.
 - Suboptimal CI runs that lead to slow feedback loops.
 
-### How does it work?
+Some of these are solved by the project generation, on which most of the workshop will be focused on.
+
+### How do Tuist-generated projects work?
 
 You describe your projects and workspaces in **Swift files (manifests)** using a Swift-based DSL.
 We drew a lot of inspiration from the Swift Package Manager.
@@ -54,8 +56,7 @@ the APIs and models that you'll find in Tuist's DSL resemble Xcode projects and 
 The following is an example of a typical Tuist project's structure:
 
 ```
-Tuist/
-  Config.swift
+Tuist.swift
 Project.swift
 ```
 
@@ -80,13 +81,7 @@ echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
 echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish
 ```
 
-#### Set up Tuist version with Mise
-
-```bash
-mise use tuist@latest
-```
-
-## 2. Project creation
+#### Create our App directory
 
 Tuist provides a command for creating projects,
 `tuist init`,
@@ -99,7 +94,17 @@ mkdir -p App
 cd App
 ```
 
-Then we are going to create the following directories and files:
+#### Set up Tuist version with Mise
+
+Now that we have our `App` directory, we can install Tuist using Mise. Mise will create `mise.toml`, so everybody on our team can use the same version of Tuist.
+
+```bash
+mise use tuist@latest
+```
+
+## 2. Project creation
+
+Now we are going to create the following directories and files:
 
 ```bash
 touch Project.swift
