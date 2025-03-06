@@ -152,7 +152,7 @@ function step8() {
   fi
 
   gitignore_file=$PROJECT_DIR/.gitignore
-  line_to_check=".build"
+  line_to_check="Tuist/.build"
 
   if grep -q "$line_to_check" "$gitignore_file"; then
     echo_success
