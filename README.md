@@ -94,7 +94,7 @@ mise use tuist@latest
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
-> git checkout step-2
+> git checkout step-1
 > ```
 
 ## 2. Project creation
@@ -117,6 +117,16 @@ touch Project.swift
 echo 'import ProjectDescription
 let tuist = Tuist()' > Tuist.swift
 ```
+
+> [!IMPORTANT]
+> Run the following to check if the step has been completed successfully:
+> ```bash
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 2
+> ```
+> If you get stuck, you can continue from this point by running the following command:
+> ```bash
+> git checkout 2
+> ```
 
 
 ## 3. Project editing
