@@ -1003,3 +1003,44 @@ TUIST_DEFAULT_PRODUCT="static_framework" tuist generate
 # We can visualize the graph by running:
 TUIST_DEFAULT_PRODUCT="static_framework" tuist graph
 ```
+
+### 14. Implicit dependencies
+
+One of the common issues that makes builds less deterministic and can make `tuist cache` less reliably are implicit dependencies.
+
+Let's create such an example by moving the `.package("Swifter")` dependency from `TuistAppKit` to `TuistApp` in the `Tuist/ProjectDescriptionHelpers/Project+TuistApp.swift` file:
+```swift
+var dependencies: [Dependency] {
+    switch self {
+    case .app: [.module(.kit), .package("Swifter")]
+    case .kit: []
+    }
+}
+```
+
+Let's also add `import Swifter` to `Modules/TuistAppKit/Sources/TuistAppKit.swift`:
+```swift
+import Foundation
+import Swifter
+
+public class TuistAppKit {
+    public init() {}
+    public func hallo() {}
+}
+```
+
+Let's generate our project and try the following:
+- Build the `TuistApp` scheme – why does it build when `Swifter` should not be available?
+- Build the `TuistAppKit` scheme – the project is still buildable, why?
+- Let's clean the derived data and try to build the `TuistAppKit` scheme. The project now doesn't compile.
+
+We can use again the `tuist graph` to visualize the project to better understand why.
+
+What can we do against this?
+
+Tuist has a command just for this:
+```swift
+tuist inspect implicit-imports
+```
+
+We can now remove the extra import in `Modules/TuistAppKit/Sources/TuistAppKit.swift`. The `tuist inspect implicit-imports` command should now succeed.
