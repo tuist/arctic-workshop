@@ -81,7 +81,23 @@ echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
 echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish
 ```
 
-#### Create our App directory
+#### Set up Tuist version with Mise
+
+```bash
+mise use tuist@latest
+```
+
+> [!IMPORTANT]
+> Run the following to check if the step has been completed successfully:
+> ```bash
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 1
+> ```
+> If you get stuck, you can continue from this point by running the following command:
+> ```bash
+> git checkout step-2
+> ```
+
+## 2. Project creation
 
 Tuist provides a command for creating projects,
 `tuist init`,
@@ -94,17 +110,7 @@ mkdir -p App
 cd App
 ```
 
-#### Set up Tuist version with Mise
-
-Now that we have our `App` directory, we can install Tuist using Mise. Mise will create `mise.toml`, so everybody on our team can use the same version of Tuist.
-
-```bash
-mise use tuist@latest
-```
-
-## 2. Project creation
-
-Now we are going to create the following directories and files:
+Then we are going to create the following directories and files:
 
 ```bash
 touch Project.swift
@@ -112,15 +118,6 @@ echo 'import ProjectDescription
 let tuist = Tuist()' > Tuist.swift
 ```
 
-> [!IMPORTANT]
-> Run the following to check if the step has been completed successfully:
-> ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 2
-> ```
-> If you get stuck, you can continue from this point by running the following command:
-> ```bash
-> git checkout 2
-> ```
 
 ## 3. Project edition
 
