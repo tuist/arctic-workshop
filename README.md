@@ -684,7 +684,7 @@ struct TuistApp: App {
 }
 ```
 
-Before we wrap up this topic, add `.build` to the `.gitignore`.
+Before we wrap up this topic, add `Tuist/.build` to the `.gitignore`.
 
 <!-- Notes
 - Talk about how dependencies are integrated as Xcode projects
