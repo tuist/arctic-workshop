@@ -346,6 +346,7 @@ Tuist supports that too.
 To see it in practice, we are going to move the `Project.swift` under `Sources/TuistApp`:
 
 ```bash
+mkdir Modules
 mv Sources Modules
 
 mkdir -p Modules/TuistApp/Sources
