@@ -350,11 +350,11 @@ mkdir Modules
 mv Sources Modules
 
 mkdir -p Modules/TuistApp/Sources
-mv Modules/TuistApp/ContentView.swift Modules/TuistApp/Sources/ContentView.swift
-mv Modules/TuistApp/TuistApp.swift Modules/TuistApp/Sources/TuistApp.swift
+mv Modules/Sources/TuistApp/ContentView.swift Modules/TuistApp/Sources/ContentView.swift
+mv Modules/Sources/TuistApp/TuistApp.swift Modules/TuistApp/Sources/TuistApp.swift
 
 mkdir -p Modules/TuistAppKit/Sources
-mv Modules/TuistAppKit/TuistAppKit.swift Modules/TuistAppKit/Sources/TuistAppKit.swift
+mv Modules/Sources/TuistAppKit/TuistAppKit.swift Modules/TuistAppKit/Sources/TuistAppKit.swift
 
 touch Workspace.swift
 
