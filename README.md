@@ -119,7 +119,7 @@ let tuist = Tuist()' > Tuist.swift
 ```
 
 
-## 3. Project edition
+## 3. Project editing
 
 Tuist provides a `tuist edit` command that generates an Xcode project on the fly to edit the manifests.
 The lifecycle of the project is tied to the lifecycle of the `tuist edit` command.
