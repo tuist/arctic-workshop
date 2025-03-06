@@ -1,2 +1,3 @@
 import ProjectDescription
-let tuist = Tuist()
+
+let tuist = Tuist(fullHandle: "marekfort/workshop")
