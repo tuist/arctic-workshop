@@ -899,3 +899,107 @@ Then you can click on the link to run the app through the macOS app, which you c
 
 > [!NOTE]
 > Previews can be accessed by anyone that that's member to an organization's account. Teams can post previews on PRs that can be easily opened by anyone reviewing the PR by just clicking on the link.
+
+### 13. Dynamic configuration
+
+By default, `tuist graph` generates an image. However, you can also generate a JSON file by passing the `--format json` flag. The output of this command is using the [XcodeGraph](https://github.com/tuist/xcodegraph) library.
+
+What we want to be able to run is `TUIST_DEFAULT_PRODUCT="static_framework" tuist generate` to change our default product type to a static framework.
+
+We can achieve that by using the environment variable in the `Tuist/ProjectDescriptionHelpers/Project+TuistApp.swift`:
+
+<details>
+<summary>Tuist/ProjectDescriptionHelpers/Project+TuistApp.swift</summary>
+
+```swift
+import ProjectDescription
+import Foundation
+
+public enum Dependency {
+    case module(Module)
+    case package(String)
+
+    var targetDependency: TargetDependency {
+        switch self {
+        case let .module(module): TargetDependency.project(target: module.name, path: "../\(module.name)")
+        case let .package(package): TargetDependency.external(name: package)
+        }
+    }
+}
+
+public enum Module: String {
+    case app
+    case kit
+
+    var product: Product {
+        switch self {
+        case .app:
+            return .app
+        case .kit:
++           switch Environment.defaultProduct {
++           case .string("static_framework"):
++               return .staticFramework
++           default:
++               return .framework
++           }
++       }
+    }
+
+    var name: String {
+        switch self  {
+        case .app: "TuistApp"
+        default: "TuistApp\(rawValue.capitalized)"
+        }
+    }
+
+    var dependencies: [Dependency] {
+        switch self {
+        case .app: [.module(.kit)]
+        case .kit: [.package("Swifter")]
+        }
+    }
+
+    var hasTests: Bool {
+        switch self {
+        case .app: return false
+        case .kit: return true
+        }
+    }
+}
+
+public extension Project {
+    static func tuist(module: Module) -> Project {
+        let dependencies = module.dependencies.map(\.targetDependency)
+        var targets: [Target] = [
+            .target(name: module.name,
+                    destinations: .iOS,
+                    product: module.product,
+                    bundleId: "dev.tuist.\(module.name)",
+                    sources: [
+                        "./Sources/**/*.swift"
+                    ],
+                    dependencies: dependencies)
+        ]
+        if module.hasTests {
+            targets.append( .target(name: "\(module.name)Tests",
+                                    destinations: .iOS,
+                                    product: .unitTests,
+                                    bundleId: "dev.tuist.\(module.name)Tests",
+                                    sources: [
+                                        "./Tests/**/*.swift"
+                                    ],
+                                    dependencies: [.target(name: module.name)]))
+        }
+        return Project(name: module.name, targets: targets)
+    }
+}
+```
+
+</details>
+
+Let's now run the `generate` command and inspect the generated project:
+```sh
+TUIST_DEFAULT_PRODUCT="static_framework" tuist generate
+# We can visualize the graph by running:
+TUIST_DEFAULT_PRODUCT="static_framework" tuist graph
+```
