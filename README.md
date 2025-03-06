@@ -1044,3 +1044,107 @@ tuist inspect implicit-imports
 ```
 
 We can now remove the extra import in `Modules/TuistAppKit/Sources/TuistAppKit.swift`. The `tuist inspect implicit-imports` command should now succeed.
+
+### 15. Custom XcodeGraph automations
+
+Wouldn't it be great if we could write our own automations that can be run on the XcodeGraph output?
+
+Thanks to [XcodeGraph](https://github.com/tuist/xcodegraph), we can do exactly that.
+
+Let's write a simple automation that will check all targets start with a capital letter. We'll start by going to a new directory where we'll work on the package:
+```
+cd ../App
+mkdir my-linter
+swift package init --name my-linter --type executable
+mkdir Sources/my-linter
+mv Sources/main.swift Sources/my-linter/main.swift
+```
+
+Let's now edit the `Package.swift` file to include dependencies we'll need:
+
+<details>
+<summary>Package.swift</summary>
+
+```swift
+// swift-tools-version: 6.0
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "my-linter",
+    platforms: [.macOS("13.0")],
+    products: [
+        .executable(name: "my-linter", targets: ["my-linter"])
+    ],
+    dependencies: [
+        .package(url: "https://github.com/tuist/XcodeGraph", from: "1.8.9"),
+        .package(url: "https://github.com/tuist/Command", from: "0.13.0"),
+        .package(url: "https://github.com/tuist/FileSystem", from: "0.7.7"),
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
+        .executableTarget(
+            name: "my-linter",
+            dependencies: [
+                .product(name: "XcodeGraph", package: "XcodeGraph"),
+                .product(name: "Command", package: "Command"),
+                .product(name: "FileSystem", package: "FileSystem"),
+            ]
+        )
+    ]
+)
+```
+
+</details>
+
+And now we can write our linter in the `main.swift` file:
+
+<details>
+<summary>Sources/my-linter/main.swift</summary>
+
+```swift
+@preconcurrency import XcodeGraph
+import FileSystem
+import Command
+import Foundation
+
+let commandRunner = CommandRunner()
+try await commandRunner
+    // When running this command in Xcode, supply the full path to tuist. Get it by running `which tuist`
+    .run(arguments: ["tuist", "graph", "--format", "json"], environment: ProcessInfo.processInfo.environment)
+    .awaitCompletion()
+let fileSystem = FileSystem()
+let graph: Graph = try await fileSystem.readJSONFile(
+    at: try await fileSystem.currentWorkingDirectory().appending(component: "graph.json")
+)
+
+let targets = graph.projects.values.flatMap(\.targets).map(\.value)
+    .filter {
+        return $0.name.first?.isUppercase == false
+    }
+
+if targets.isEmpty {
+    print("All targets start with a capital letter")
+    exit(0)
+} else {
+    print("The following targets don't start with a capital letter: \(targets.map(\.name).joined(separator: ", "))")
+    exit(1)
+}
+```
+
+</details>
+
+Let's check the linter works by running it from the `App` directory:
+```sh
+swift run --package-path ../my-linter my-linter
+```
+
+When we update one of our target names not to start with a capital letter in the `Tuist/ProjectDescriptionHelpers/Project+TuistApp.swift` file, running the command should now fail.
+
+**Challenge**: Think of a rule that you'd like to enforce in your projects and write a linter for it. Create this in a separate repository and share it with others.
+_Bonus_: We can use [Noora](https://github.com/tuist/Noora/) to make the output more appealing and the [ArgumentParser](https://github.com/apple/swift-argument-parser) to pass and parse arguments.
+
+> [!TIP]
+> You can run arbitrary Swift CLIs with just a URL by running leveraging the Mise SwiftPM backend, such as: `mise x spm:https://github.com/nicklockwood/SwiftFormat.git@main -- swiftformat --version`
