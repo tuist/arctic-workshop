@@ -4,5 +4,5 @@
 let package = Package(
     name: "TuistApp",
     dependencies: [
-        .package(url: "https://github.com/httpswift/swifter", .upToNextMajor(from: "1.5.0"))
+        .package(id: "httpswift.swifter", .upToNextMajor(from: "1.5.0"))
     ])
