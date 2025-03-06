@@ -895,7 +895,7 @@ And now we can share the app with the team:
 tuist share TuistApp
 ```
 
-Then you can click on the link to run the app through the macOS app, whichyou can install [using this link](https://tuist.dev/download).
+Then you can click on the link to run the app through the macOS app, which you can install [using this link](https://tuist.dev/download).
 
 > [!NOTE]
 > Previews can be accessed by anyone that that's member to an organization's account. Teams can post previews on PRs that can be easily opened by anyone reviewing the PR by just clicking on the link.
