@@ -570,13 +570,13 @@ It uses SPM to resolve the packages, and CocoaPods' idea of integrating dependen
 Create the following following file:
 
 ```bash
-touch Package.swift
+touch Tuist/Package.swift
 ```
 
 With the following content:
 
 <details>
-<summary>Package.swift</summary>
+<summary>Tuist/Package.swift</summary>
 
 ```swift
 // swift-tools-version: 6.0
