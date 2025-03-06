@@ -866,33 +866,33 @@ public extension Project {
 Previewing changes fast can foster collaboration and speed up development.
 Tuist solves that with previews.
 
-Let's authenticated in Tuist:
+Let's get authenticated in Tuist:
 
 ```bash
-tuist auth
+tuist auth login
 ```
 
 And create a project:
 
 ```bash
-tuist project create pedro/workshop
+tuist project create marekfort/workshop
 ```
 
 > [!NOTE]
 > `pedro` is your account handle. You can check out in the URL when visiting the dashboard at [https://tuist.dev](https://tuist.dev)
 
-Then, let's update the `Tuist/Config.swift` file to include the project handle:
+Then, let's update the `Tuist.swift` file to include the project handle:
 
 ```swift
 import ProjectDescription
 
-let config = Config(fullHandle: "pedro/workshop")
+let tuist = Tuist(fullHandle: "marekfort/workshop")
 ```
 
 And now we can share the app with the team:
 
 ```
-tuist share App
+tuist share TuistApp
 ```
 
 Then you can click on the link to run the app through the macOS app, whichyou can install [using this link](https://tuist.dev/download).
