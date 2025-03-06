@@ -861,12 +861,53 @@ public extension Project {
 > git checkout 11
 > ```
 
-## 12. Previews
+## 12. Remote binary cache and selective tests
+
+So far, we've been able to cache binaries and selective test results in our local environment. However, wouldn't it be great if we could share those across the team?
+
+For that, we'll need a Tuist account:
+
+```bash
+tuist auth login
+```
+
+And a Tuist project on the Tuist server:
+
+```bash
+tuist project create marekfort/workshop
+```
+
+> [!NOTE]
+> `marekfort` is your account handle. You can check out in the URL when visiting the dashboard at [https://tuist.dev](https://tuist.dev)
+
+Then, let's update the `Tuist.swift` file to include the project handle:
+
+```swift
+import ProjectDescription
+
+let tuist = Tuist(fullHandle: "marekfort/workshop")
+```
+
+Now, we can clean our results locally:
+```bash
+tuist clean selectiveTests binaries
+```
+
+We'll re-run the commands again to cache the results remotely and then clean again:
+
+```bash
+tuist cache
+tuist test
+tuist clean selectiveTests binaries
+```
+
+Now, when running `tuist generate App`, `tuist` will automatically pull the binaries! And the same goes for selective test results.
+
+
+## 13. Previews
 
 Previewing changes fast can foster collaboration and speed up development.
 Tuist solves that with previews.
-
-Let's get authenticated in Tuist:
 
 ```bash
 tuist auth login
@@ -878,16 +919,7 @@ And create a project:
 tuist project create marekfort/workshop
 ```
 
-> [!NOTE]
-> `pedro` is your account handle. You can check out in the URL when visiting the dashboard at [https://tuist.dev](https://tuist.dev)
 
-Then, let's update the `Tuist.swift` file to include the project handle:
-
-```swift
-import ProjectDescription
-
-let tuist = Tuist(fullHandle: "marekfort/workshop")
-```
 
 And now we can share the app with the team:
 
@@ -900,7 +932,7 @@ Then you can click on the link to run the app through the macOS app, which you c
 > [!NOTE]
 > Previews can be accessed by anyone that that's member to an organization's account. Teams can post previews on PRs that can be easily opened by anyone reviewing the PR by just clicking on the link.
 
-### 13. Dynamic configuration
+### 14. Dynamic configuration
 
 By default, `tuist graph` generates an image. However, you can also generate a JSON file by passing the `--format json` flag. The output of this command is using the [XcodeGraph](https://github.com/tuist/xcodegraph) library.
 
@@ -1004,7 +1036,7 @@ TUIST_DEFAULT_PRODUCT="static_framework" tuist generate
 TUIST_DEFAULT_PRODUCT="static_framework" tuist graph
 ```
 
-### 14. Implicit dependencies
+### 15. Implicit dependencies
 
 One of the common issues that makes builds less deterministic and can make `tuist cache` less reliably are implicit dependencies.
 
@@ -1045,7 +1077,7 @@ tuist inspect implicit-imports
 
 We can now remove the extra import in `Modules/TuistAppKit/Sources/TuistAppKit.swift`. The `tuist inspect implicit-imports` command should now succeed.
 
-### 15. Custom XcodeGraph automations
+### 16. Custom XcodeGraph automations
 
 Wouldn't it be great if we could write our own automations that can be run on the XcodeGraph output?
 
@@ -1148,3 +1180,40 @@ _Bonus_: We can use [Noora](https://github.com/tuist/Noora/) to make the output 
 
 > [!TIP]
 > You can run arbitrary Swift CLIs with just a URL by running leveraging the Mise SwiftPM backend, such as: `mise x spm:https://github.com/nicklockwood/SwiftFormat.git@main -- swiftformat --version`
+
+### 17. Registry
+
+[Swift Package Registry](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/PackageRegistryUsage.md) is a Swift standard for making Swift package resolutions more deterministic, space-efficient, and faster.
+
+Tuist has implemented this standard and includes all packages that you can find in the [Swift Package Index](https://swiftpackageindex.com/).
+
+Let's resolve our App packages using the Tuist Registry instead of source control.
+
+We'll update the `Tuist/Package.swift` to reference the `Swifter` package with a registry identifier instead of a URL:
+```swift
+// swift-tools-version: 6.0
+@preconcurrency import PackageDescription
+
+let package = Package(
+    name: "TuistApp",
+    dependencies: [
++       .package(id: "httpswift.swifter", .upToNextMajor(from: "1.5.0"))
+    ])
+```
+
+We will also need to set up the registry:
+```sh
+tuist registry setup
+tuist registry login
+```
+
+Let's now inspect how big our `Tuist/.build` directory is before resolving packages with the registry:
+```sh
+du -sh Tuist/.build
+```
+
+And now we can resolve the packages with the registry and compare the size:
+```sh
+tuist install
+du -sh Tuist/.build
+```
