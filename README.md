@@ -1217,3 +1217,24 @@ And now we can resolve the packages with the registry and compare the size:
 tuist install
 du -sh Tuist/.build
 ```
+
+The checked out directories are usually by 80 % larger when using the registry. Not only we can save space, but we can also speed up the incremental resolution process on [the CI dramatically](https://docs.tuist.dev/en/guides/develop/registry/continuous-integration#incremental-resolution-across-environments).
+
+
+### 18. Non-generated projects
+
+Wouldn't it be great if you could get most of the above benefits without having to migrate your project to be generated with Tuist? Well, you can!
+
+Let's create a completely new Xcode project and explore commands compatible with non-generated projects, such as:
+- Selective testing
+  - Run `tuist xcodebuild test --project App.xcodeproj --scheme App`
+- `tuist graph`
+- Registry
+  - Set up a Tuist project and create an accompanying `Tuist.swift` file
+  - `tuist registry setup`
+  - `tuist registry login`
+  - Add a package from registry using Xcode's UI
+- Previews
+  - Build the app in Xcode
+  - Run `tuist share App --platforms iOS`
+- ...and soon more!
