@@ -97,7 +97,6 @@ First of all, let's create a directory and call it `App`. Create it in this repo
 ```bash
 mkdir -p App
 cd App
-mkdir Tuist/
 ```
 
 Then we are going to create the following directories and files:
@@ -105,7 +104,7 @@ Then we are going to create the following directories and files:
 ```bash
 touch Project.swift
 echo 'import ProjectDescription
-let config = Config()' > Tuist/Config.swift
+let tuist = Tuist()' > Tuist.swift
 ```
 
 > [!IMPORTANT]
