@@ -11,7 +11,7 @@ you can run the following command passing the topic number that you just complet
 
 ```bash
 # Confirming the completion of step 1
-bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 1
+bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 1
 ```
 
 ## Requirements
@@ -90,7 +90,7 @@ mise use tuist@latest
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 1
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 1
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
@@ -121,7 +121,7 @@ let tuist = Tuist()' > Tuist.swift
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 2
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 2
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
@@ -196,7 +196,7 @@ struct TuistApp: App {
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 3
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 3
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
@@ -234,7 +234,7 @@ Thanks to the above change, the chances of Git conflicts are minimized considera
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 4
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 4
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
@@ -330,7 +330,7 @@ Note how Tuist added a build phase to the `TuistApp` to embed the dynamic framew
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 5
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 5
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
@@ -444,7 +444,7 @@ Generate the project and makes sure it compiles and runs successfully.
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 6
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 6
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
@@ -548,7 +548,7 @@ let project = Project.tuist(module: .kit)
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 7
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 7
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
@@ -694,7 +694,7 @@ Before we wrap up this topic, add `Tuist/.build` to the `.gitignore`.
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 8
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 8
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
@@ -854,7 +854,7 @@ public extension Project {
 > [!IMPORTANT]
 > Run the following to check if the step has been completed successfully:
 > ```bash
-> bash <(curl -sSL https://raw.githubusercontent.com/tuist/workshop/main/assert.sh) 11
+> bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/assert.sh) 11
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
