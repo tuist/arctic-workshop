@@ -17,7 +17,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/as
 ## Requirements
 
 - Xcode 16
-- [Tuist](https://docs.tuist.dev/en/guides/quick-start/install-tuist) 4.34.3
+- [Tuist](https://docs.tuist.dev/en/guides/quick-start/install-tuist) 4.44.2
 
 ## Topics
 
@@ -32,7 +32,13 @@ bash <(curl -sSL https://raw.githubusercontent.com/tuist/arctic-workshop/main/as
 9. [Focused projects](#9-focused-projects)
 10. [Focused and binary-optimized projects](#9-focused-and-binary-optimized-projects)
 11. [Selective tests](#11-selective-tests)
-12. [Previews](#12-previews)
+12. [Remote binary cache and selective tests](#12-remote-binary-cache-and-selective-tests)
+13. [Previews](#13-previews)
+14. [Dynamic configuration](#14-dynamic-configuration)
+15. [Implicit dependencies](#15-implicit-dependencies)
+16. [Custom XcodeGraph automations](#16-custom-xcodegraph-automations)
+17. [Registry](#17-registry)
+18. [Non-generated projects](#18-non-generated-projects)
 
 ## 1. What is Tuist?
 
