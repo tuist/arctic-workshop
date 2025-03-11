@@ -94,7 +94,7 @@ mise use tuist@latest
 > ```
 > If you get stuck, you can continue from this point by running the following command:
 > ```bash
-> git checkout step-1
+> git checkout 1
 > ```
 
 ## 2. Project creation
@@ -909,19 +909,7 @@ Now, when running `tuist generate App`, `tuist` will automatically pull the bina
 Previewing changes fast can foster collaboration and speed up development.
 Tuist solves that with previews.
 
-```bash
-tuist auth login
-```
-
-And create a project:
-
-```bash
-tuist project create marekfort/workshop
-```
-
-
-
-And now we can share the app with the team:
+To share the app with the team, run:
 
 ```
 tuist share TuistApp
@@ -933,6 +921,8 @@ Then you can click on the link to run the app through the macOS app, which you c
 > Previews can be accessed by anyone that that's member to an organization's account. Teams can post previews on PRs that can be easily opened by anyone reviewing the PR by just clicking on the link.
 
 ### 14. Dynamic configuration
+
+Let's visualize our project using the `tuist graph` command to see the current structure of our graph.
 
 By default, `tuist graph` generates an image. However, you can also generate a JSON file by passing the `--format json` flag. The output of this command is using the [XcodeGraph](https://github.com/tuist/xcodegraph) library.
 
@@ -1038,7 +1028,7 @@ TUIST_DEFAULT_PRODUCT="static_framework" tuist graph
 
 ### 15. Implicit dependencies
 
-One of the common issues that makes builds less deterministic and can make `tuist cache` less reliably are implicit dependencies.
+One of the common issues that makes builds less deterministic and can make `tuist cache` less reliabl are implicit dependencies.
 
 Let's create such an example by moving the `.package("Swifter")` dependency from `TuistAppKit` to `TuistApp` in the `Tuist/ProjectDescriptionHelpers/Project+TuistApp.swift` file:
 ```swift
@@ -1238,3 +1228,13 @@ Let's create a completely new Xcode project and explore commands compatible with
   - Build the app in Xcode
   - Run `tuist share App --platforms iOS`
 - ...and soon more!
+
+<!--
+- Possible workshop extensions:
+- tuist inspect build
+- New tuist init experience
+- `tuist cache --print-hashes`
+- Show dashboard of the runs
+- Tuist reports
+- Add feature modules as another layer
+-->
