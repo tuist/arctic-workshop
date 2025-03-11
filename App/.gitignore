@@ -1,5 +1,0 @@
-*.xcodeproj
-*.xcworkspace
-Derived/
-.DS_Store
-.build/
