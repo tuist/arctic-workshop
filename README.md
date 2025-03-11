@@ -861,6 +861,8 @@ public extension Project {
 > git checkout 11
 > ```
 
+**Challenge:** Add an example module in the `tuist` `module` factory, similar to unit tests.
+
 ## 12. Remote binary cache and selective tests
 
 So far, we've been able to cache binaries and selective test results in our local environment. However, wouldn't it be great if we could share those across the team?
@@ -902,6 +904,9 @@ tuist clean selectiveTests binaries
 ```
 
 Now, when running `tuist generate App`, `tuist` will automatically pull the binaries! And the same goes for selective test results.
+
+> [!TIP]
+> You can use `tuist cache --print-hashes` to see the hashes of the targets that will be cached. These hashes are also available in the Tuist dashboard.
 
 
 ## 13. Previews
@@ -1233,8 +1238,8 @@ Let's create a completely new Xcode project and explore commands compatible with
 - Possible workshop extensions:
 - tuist inspect build
 - New tuist init experience
-- `tuist cache --print-hashes`
 - Show dashboard of the runs
 - Tuist reports
 - Add feature modules as another layer
+- How to contribute to Tuist
 -->
